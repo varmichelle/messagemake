@@ -1,34 +1,45 @@
 <html>
-<head>
-<title>Chat Room</title>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-</head>
-<body>
-<script type="text/javascript">
-$(document).ready(function() {
+	<head>
+		<title>Chat Room</title>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+		<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
 
-	var socket = io.connect('http://127.0.0.1:5000');
+		#messages {
+			width: 100%;
+			height: 100vh;
+			padding: 1rem;
+		}
 
-	socket.on('connect', function() {
-		socket.send('User has connected!');
-	});
+		p {
+			font: 300 3rem/100% system-ui;
+			margin: .15rem .5rem;
+		}
+		</style>
+	</head>
 
-	socket.on('message', function(msg) {
-		$("#messages").append('<li>'+msg+'</li>');
-		$("#messages")[0].style.backgroundColor = msg;
-		console.log('Received message');
-	});
+	<body>
+		<script type="text/javascript">
+		$(document).ready(function() {
 
-	$('#sendbutton').on('click', function() {
-		socket.send($('#myMessage').val());
-		$('#myMessage').val('');
-	});
+			var socket = io.connect('https://messagemake.herokuapp.com/');
 
-});
-</script>
-<ul id="messages"></ul>
-<input type="text" id="myMessage">
-<button id="sendbutton">Send</button>
-</body>
+			socket.on('connect', function() {
+				socket.send("text a color to (205) 557-2027");
+			});
+
+			socket.on('message', function(msg) {
+				$("#messages").append('<p>'+msg+'</p>');
+				$("#messages")[0].style.backgroundColor = msg;
+			});
+		});
+		</script>
+
+		<div id="messages"></div>
+	</body>
 </html>
