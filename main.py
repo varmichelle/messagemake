@@ -11,7 +11,7 @@ account_sid = os.environ['TWILIO_ACCOUNT_SID']
 auth_token = os.environ['TWILIO_AUTH_TOKEN']
 client = Client(account_sid, auth_token)
 
-@app.route('/', methods=[POST'])
+@app.route('/', methods=['POST'])
 def index():
 	incomingMessageBody = request.values.get('Body', None)
 	incomingMessageSender = request.values.get('From')
