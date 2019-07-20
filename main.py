@@ -11,24 +11,22 @@ account_sid = os.environ['TWILIO_ACCOUNT_SID']
 auth_token = os.environ['TWILIO_AUTH_TOKEN']
 client = Client(account_sid, auth_token)
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=[POST'])
 def index():
-	if request.method == 'POST':
-		incomingMessageBody = request.values.get('Body', None)
+	incomingMessageBody = request.values.get('Body', None)
+	incomingMessageSender = request.values.get('From')
 
-		# Reply with the same message
-		message = client.messages \
-		.create(
-			body=incomingMessageBody,
-			from_='+12055572027',
-			to='+19784831084'
-		)
-		print(message.sid)
+	# Reply with a thank you message
+	# Remove this for demo probably
+	message = client.messages \
+	.create(
+		body='Thanks! Your message has been received.',
+		from_='+12055572027',
+		to=incomingMessageSender
+	)
 
-		socketio.emit('message', incomingMessageBody)
-		return incomingMessageBody
-	else:
-		return "message sent"
+	socketio.emit('message', incomingMessageBody)
+	return incomingMessageBody
 
 @socketio.on('message')
 def handleMessage(msg):
