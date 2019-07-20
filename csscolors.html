@@ -29,10 +29,6 @@
 
 			var socket = io.connect('https://messagemake.herokuapp.com/');
 
-			socket.on('connect', function() {
-				socket.send("text a color to (205) 557-2027");
-			});
-
 			socket.on('message', function(msg) {
 				$("#messages").append('<p>'+msg+'</p>');
 				$("#messages")[0].style.backgroundColor = msg;
@@ -40,6 +36,8 @@
 		});
 		</script>
 
-		<div id="messages"></div>
+		<div id="messages">
+			<p>text a color to (205) 557-2027</p>
+		</div>
 	</body>
 </html>
