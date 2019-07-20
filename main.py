@@ -24,6 +24,7 @@ def index():
 		from_='+12055572027',
 		to=incomingMessageSender
 	)
+	print(message.sid)
 
 	socketio.emit('message', incomingMessageBody)
 	return incomingMessageBody
