@@ -1,6 +1,6 @@
 <body>
     <div id="container"></div>
-    <script src="js/three.min.js"></script>
+    <script src="https://threejs.org/build/three.min.js"></script>
     <script id="vertexShader" type="x-shader/x-vertex">
         void main() {
             gl_Position = vec4( position, 1.0 );
@@ -12,7 +12,12 @@
 
         void main() {
             vec2 st = gl_FragCoord.xy/u_resolution.xy;
-            gl_FragColor=vec4(st.x,st.y,0.0,1.0);
+            st.x *= u_resolution.x/u_resolution.y;
+
+            vec3 color = vec3(0.);
+            color = vec3(st.x,st.y,abs(sin(u_time)));
+
+            gl_FragColor = vec4(color,1.0);
         }
     </script>
     <script>
@@ -55,11 +60,6 @@
 
             onWindowResize();
             window.addEventListener( 'resize', onWindowResize, false );
-
-            document.onmousemove = function(e){
-              uniforms.u_mouse.value.x = e.pageX
-              uniforms.u_mouse.value.y = e.pageY
-            }
         }
 
         function onWindowResize( event ) {
