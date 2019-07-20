@@ -27,7 +27,7 @@
 		<script type="text/javascript">
 		$(document).ready(function() {
 
-			var socket = io.connect('https://messagemake.herokuapp.com/');
+			var socket = io.connect('https://functus.serveo.net');
 
 			socket.on('message', function(msg) {
 				$("#messages").append('<p>'+msg+'</p>');
