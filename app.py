@@ -1,38 +1,41 @@
 import os
 from twilio.rest import Client
-from flask_socketio import SocketIO
-from flask import Flask, request, render_template
-from twilio.twiml.messaging_response import MessagingResponse
+from flask import Flask, request
+from flask_socketio import SocketIO, send, emit
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'mysecret'
 socketio = SocketIO(app)
 
 account_sid = os.environ['TWILIO_ACCOUNT_SID']
 auth_token = os.environ['TWILIO_AUTH_TOKEN']
 client = Client(account_sid, auth_token)
 
-@app.route("/")
-def hello():
-  return render_template('index.html')
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == 'GET':
+        return "hello world!"
 
-@app.route("/sms", methods=['GET', 'POST'])
-def sms():
-  if request.method == 'POST':
-    # Get the message the user sent our Twilio number
-    incomingMessageBody = request.values.get('Body', None)
+    if request.method == 'POST':
+    	incomingMessageBody = request.values.get('Body', None)
+    	incomingMessageSender = request.values.get('From')
 
-    # Reply with the same message
-    message = client.messages \
-    .create(
-        body=incomingMessageBody,
-        from_='+12055572027',
-        to='+19784831084'
-    )
-    print(message.sid)
-    return incomingMessageBody
-  
-  if request.method == 'GET':
-    return "sms page"
+    	# Reply with a thank you message
+    	# Remove this for demo probably
+    	message = client.messages \
+    	.create(
+    		body='Thanks! Your message has been received.',
+    		from_='+12055572027',
+    		to=incomingMessageSender
+    	)
 
-if __name__ == "__main__":
-  socketio.run(app)
+    	socketio.emit('message', incomingMessageBody)
+    	return incomingMessageBody
+
+@socketio.on('message')
+def handleMessage(msg):
+	print('Message: ' + msg)
+	send(msg, broadcast=True)
+
+if __name__ == '__main__':
+	socketio.run(app)
