@@ -67,13 +67,18 @@
 				});
 
 				socket.on('message', function(msg) {
+					console.log(msg);
+
 					let randNum1 = Math.floor(Math.random() * 500) + 100;
 					let randNum2 = Math.floor(Math.random() * window.innerWidth);
+					
+					let colors = ['tomato', 'rebeccapurple', 'saddlebrown', 'aliceblue', 'cornsilk', 'darkgoldenrod', 'papayawhip']
+					let randColorNum = Math.floor(Math.random() * colors.length) + 1;
 
 					$("#art-container").append(
 						'<div class="circle"' +
 						'style="background: ' +
-						msg +
+						msg || colors[randColorNum] +
 						'; top: ' +
 						randNum1 +
 						'px; left: ' +
