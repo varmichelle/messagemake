@@ -35,6 +35,21 @@
 			height: 100px;
 			background: tomato;
 			position: absolute;
+			opacity: .8;
+			transform: scale(1.0);
+			animation: move infinite 2s;
+		}
+
+		@keyframes move {
+			0% {
+				transform: scale(1.0);
+			}
+			50% {
+				transform: scale(1.1);
+			}
+			100% {
+				transform: scale(1.0);
+			}
 		}
 		</style>
 	</head>
@@ -53,7 +68,7 @@
 
 				socket.on('message', function(msg) {
 					let randNum1 = Math.floor(Math.random() * 500) + 100;
-					let randNum2 = Math.floor(Math.random() * 500) + 200;
+					let randNum2 = Math.floor(Math.random() * window.innerWidth);
 
 					$("#art-container").append(
 						'<div class="circle"' +
