@@ -14,6 +14,7 @@
 			width: 100%;
 			height: 100vh;
 			padding: 1rem;
+			position: fixed;
 		}
 
 		p {
@@ -24,13 +25,20 @@
 	</head>
 
 	<body>
-		<script type="text/javascript">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.js"></script>
+		<script>
+
 		$(document).ready(function() {
-			var socket = io.connect('http://c8f2969d.ngrok.io/');
+			var socket = io.connect('http://functus.serveo.net/');
 
 			socket.on('message', function(msg) {
 				$("#messages").append('<p>'+msg+'</p>');
 				$("#messages")[0].style.backgroundColor = msg;
+
+				function draw() {
+					ellipse(50,50,80,80);
+				}
+				
 			});
 		});
 		</script>
