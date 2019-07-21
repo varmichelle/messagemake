@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Chat Room</title>
+		<title>Message Make</title>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 		<style>
@@ -46,6 +46,7 @@
 			}
 
 			function draw () {
+				console.log(colors);
 				for (i = 0; i < colors.length; i++) {
 					let c = color(colors[i]); // Define color 'c'
 					fill(c); // Use color variable 'c' as fill color
