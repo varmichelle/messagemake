@@ -1,10 +1,13 @@
 <html>
 <head>
-<title>Chat Room</title>
+<title>Message Make</title>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 </head>
 <body>
+<div id="messages">
+    <p>text a color to (205) 557-2027</p>
+</div>
 <div id="container"></div>
 <script src="https://threejs.org/build/three.min.js"></script>
 <script id="vertexShader" type="x-shader/x-vertex">
@@ -265,7 +268,7 @@
 }
 $(document).ready(function() {
 
-    var socket = io.connect('http://127.0.0.1:5000/');
+    var socket = io.connect('https://functus.serveo.net');
 
     socket.on('connect', function() {
         socket.send('User has connected!');
