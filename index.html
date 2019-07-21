@@ -3,6 +3,12 @@
 <title>Message Make</title>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<style>
+    p {
+            font: 300 3rem/100% system-ui;
+            margin: .15rem .5rem;
+        }
+</style>
 </head>
 <body>
 <div id="messages">
@@ -275,7 +281,7 @@ $(document).ready(function() {
     });
 
     socket.on('message', function(msg) {
-        $("#messages").append('<li>'+msg+'</li>');
+        $("#messages-list").append('<li>'+msg+'</li>');
         console.log('Received message');
         if (msg in colors) {
             const rgbArr = colors[msg];
@@ -292,7 +298,7 @@ $(document).ready(function() {
 
 });
 </script>
-<ul id="messages"></ul>
+<ul id="messages-list"></ul>
 <input type="text" id="myMessage">
 <button id="sendbutton">Send</button>
 </body>
