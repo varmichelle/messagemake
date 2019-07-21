@@ -276,10 +276,6 @@ $(document).ready(function() {
 
     var socket = io.connect('https://functus.serveo.net');
 
-    socket.on('connect', function() {
-        socket.send('User has connected!');
-    });
-
     socket.on('message', function(msg) {
         $("#messages-list").append('<li>'+msg+'</li>');
         console.log('Received message');
